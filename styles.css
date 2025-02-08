@@ -6,7 +6,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #000; /* Fully black background */
+    background-color: #003b00; /* Dark green PCB background */
     color: white;
     font-family: Arial, sans-serif;
     overflow: hidden;
@@ -19,17 +19,17 @@ body {
     font-weight: bold;
     z-index: 10;
     position: relative;
-    text-transform: uppercase; /* All caps */
-    text-shadow: 0 0 10px rgba(0, 255, 0, 0.6); /* Initial glow effect */
-    transition: text-shadow 0.3s ease; /* Smooth transition for hover effect */
+    text-transform: uppercase;
+    text-shadow: none;
+    transition: text-shadow 0.3s ease;
 }
 
-/* Hover effect on text */
-.center-text:hover {
-    text-shadow: 0 0 30px rgba(0, 255, 0, 1); /* Stronger glow on hover */
+/* Glow effect on text when the "torch" is near */
+.center-text.torch-hover {
+    text-shadow: 0 0 20px rgba(0, 255, 0, 0.8), 0 0 40px rgba(0, 255, 0, 0.6);
 }
 
-/* Canvas for circuit board */
+/* Canvas styling */
 canvas {
     position: absolute;
     top: 0;
@@ -39,7 +39,7 @@ canvas {
     z-index: 1;
 }
 
-/* Cursor styling */
+/* Hide default cursor */
 body {
-    cursor: none; /* Hide default cursor */
+    cursor: none;
 }
