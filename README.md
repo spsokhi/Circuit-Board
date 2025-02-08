@@ -1,4 +1,4 @@
-# Circuit Board Visualization
+# Circuit Board
 
 ## Overview
 
