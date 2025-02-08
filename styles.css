@@ -1,0 +1,38 @@
+/* General body styling */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #004d00; /* Dark green background */
+    color: white;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+/* Centered text */
+.center-text {
+    font-size: 3rem;
+    font-weight: bold;
+    z-index: 10;
+    position: relative;
+}
+
+/* Torch effect container */
+.torch {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8), transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+}
+
+/* Cursor styling */
+body {
+    cursor: none; /* Hide default cursor */
+}
