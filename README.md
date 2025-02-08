@@ -30,6 +30,12 @@ This project creates an interactive and visually appealing simulation of a circu
 
 ---
 
+## Live Demo
+
+You can try out the live demo of this project here: [Live Demo](https://spsokhi.github.io/Circuit-Board/)
+
+---
+
 ## File Structure
 
 ```
@@ -139,5 +145,5 @@ Ensure your browser supports HTML5 Canvas and CSS transitions for the best exper
 
 ## Credits
 
-Created by Sukhpreet Singh.
-For questions or feedback, please contact: gs.spsokhi@gmail.com
+- Created by Sukhpreet Singh.
+- For questions or feedback, please contact: gs.spsokhi@gmail.com
