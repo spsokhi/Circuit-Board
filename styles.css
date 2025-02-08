@@ -6,7 +6,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #0a240a; /* Dark green PCB-like background */
+    background-color: #000; /* Fully black background */
     color: white;
     font-family: Arial, sans-serif;
     overflow: hidden;
@@ -19,10 +19,14 @@ body {
     font-weight: bold;
     z-index: 10;
     position: relative;
-    text-shadow: 0 0 20px rgba(0, 255, 0, 0.8); /* Green glow effect on text */
-    animation: pulse 2s infinite alternate;
-    text-transform: uppercase;
-    transition: text-shadow 0.3s ease;
+    text-transform: uppercase; /* All caps */
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.6); /* Initial glow effect */
+    transition: text-shadow 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Hover effect on text */
+.center-text:hover {
+    text-shadow: 0 0 30px rgba(0, 255, 0, 1); /* Stronger glow on hover */
 }
 
 /* Canvas for circuit board */
@@ -38,19 +42,4 @@ canvas {
 /* Cursor styling */
 body {
     cursor: none; /* Hide default cursor */
-}
-
-/* Pulsating glow animation */
-@keyframes pulse {
-    from {
-        text-shadow: 0 0 10px rgba(0, 255, 0, 0.6);
-    }
-    to {
-        text-shadow: 0 0 30px rgba(0, 255, 0, 1);
-    }
-}
-
-/* Hover effect on text */
-.center-text:hover {
-    text-shadow: 0 0 40px rgba(0, 255, 0, 1), 0 0 60px rgba(0, 255, 0, 1);
 }

@@ -1,5 +1,6 @@
 // Select elements
 const canvas = document.getElementById('circuit-board');
+const textElement = document.querySelector('.center-text');
 
 // Set canvas dimensions
 canvas.width = window.innerWidth;
@@ -14,35 +15,39 @@ offscreenCanvas.width = canvas.width;
 offscreenCanvas.height = canvas.height;
 const offscreenCtx = offscreenCanvas.getContext('2d');
 
-// Draw circuit board components on the offscreen canvas
+// Draw complex circuit board components on the offscreen canvas
 function drawCircuitBoard() {
+    // Background color
+    offscreenCtx.fillStyle = '#006a09'; // Dark green PCB-like background
+    offscreenCtx.fillRect(0, 0, offscreenCanvas.width, offscreenCanvas.height);
+
     // Background grid
-    offscreenCtx.strokeStyle = 'rgba(0, 255, 0, 0.1)'; // Faint green grid lines
+    offscreenCtx.strokeStyle = 'rgba(255, 255, 255, 0.1)'; // Faint white grid lines
     offscreenCtx.lineWidth = 1;
 
-    for (let x = 0; x < offscreenCanvas.width; x += 20) {
+    for (let x = 0; x < offscreenCanvas.width; x += 10) {
         offscreenCtx.beginPath();
         offscreenCtx.moveTo(x, 0);
         offscreenCtx.lineTo(x, offscreenCanvas.height);
         offscreenCtx.stroke();
     }
 
-    for (let y = 0; y < offscreenCanvas.height; y += 20) {
+    for (let y = 0; y < offscreenCanvas.height; y += 10) {
         offscreenCtx.beginPath();
         offscreenCtx.moveTo(0, y);
         offscreenCtx.lineTo(offscreenCanvas.width, y);
         offscreenCtx.stroke();
     }
 
-    // Draw wires
-    offscreenCtx.strokeStyle = 'rgba(0, 255, 0, 0.6)';
+    // Draw dense wires
+    offscreenCtx.strokeStyle = 'rgba(0, 0, 0, 0.8)'; // Blackish wires
     offscreenCtx.lineWidth = 2;
 
     for (let i = 0; i < 100; i++) {
         const x1 = Math.random() * offscreenCanvas.width;
         const y1 = Math.random() * offscreenCanvas.height;
-        const x2 = x1 + (Math.random() - 0.5) * 300;
-        const y2 = y1 + (Math.random() - 0.5) * 300;
+        const x2 = x1 + (Math.random() - 0.5) * 400;
+        const y2 = y1 + (Math.random() - 0.5) * 400;
 
         offscreenCtx.beginPath();
         offscreenCtx.moveTo(x1, y1);
@@ -51,7 +56,7 @@ function drawCircuitBoard() {
     }
 
     // Draw vias (small circles)
-    offscreenCtx.fillStyle = 'rgba(255, 255, 255, 0.4)'; // White dots for vias
+    offscreenCtx.fillStyle = 'rgba(255, 255, 255, 0.4)'; // Dimmer vias
     for (let i = 0; i < 200; i++) {
         const x = Math.random() * offscreenCanvas.width;
         const y = Math.random() * offscreenCanvas.height;
@@ -61,33 +66,33 @@ function drawCircuitBoard() {
     }
 
     // Draw resistors
-    offscreenCtx.fillStyle = 'rgba(255, 0, 0, 0.6)'; // Red rectangles for resistors
-    for (let i = 0; i < 50; i++) {
+    offscreenCtx.fillStyle = 'rgba(139, 69, 19, 0.8)'; // Brown resistors
+    for (let i = 0; i < 30; i++) {
         const x = Math.random() * offscreenCanvas.width;
         const y = Math.random() * offscreenCanvas.height;
         offscreenCtx.fillRect(x, y, 10, 20);
     }
 
     // Draw capacitors
-    offscreenCtx.fillStyle = 'rgba(0, 0, 255, 0.6)'; // Blue rectangles for capacitors
-    for (let i = 0; i < 50; i++) {
+    offscreenCtx.fillStyle = 'rgba(128, 128, 128, 0.8)'; // Gray capacitors
+    for (let i = 0; i < 30; i++) {
         const x = Math.random() * offscreenCanvas.width;
         const y = Math.random() * offscreenCanvas.height;
         offscreenCtx.fillRect(x, y, 15, 10);
     }
 
     // Draw ICs
-    offscreenCtx.fillStyle = 'rgba(255, 255, 0, 0.6)'; // Yellow rectangles for ICs
-    for (let i = 0; i < 20; i++) {
+    offscreenCtx.fillStyle = 'rgba(128, 128, 128, 0.8)'; // Gray ICs
+    for (let i = 0; i < 15; i++) {
         const x = Math.random() * offscreenCanvas.width;
         const y = Math.random() * offscreenCanvas.height;
-        offscreenCtx.fillRect(x, y, 40, 20);
+        offscreenCtx.fillRect(x, y, 60, 30);
 
         // Add pins to ICs
-        offscreenCtx.fillStyle = 'rgba(255, 255, 255, 0.6)';
-        for (let pin = 0; pin < 8; pin++) {
+        offscreenCtx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+        for (let pin = 0; pin < 12; pin++) {
             offscreenCtx.fillRect(x + pin * 5, y - 5, 3, 5); // Top pins
-            offscreenCtx.fillRect(x + pin * 5, y + 20, 3, 5); // Bottom pins
+            offscreenCtx.fillRect(x + pin * 5, y + 30, 3, 5); // Bottom pins
         }
     }
 }
@@ -103,13 +108,13 @@ document.addEventListener('mousemove', (e) => {
     // Draw the static circuit board from the offscreen canvas
     ctx.drawImage(offscreenCanvas, 0, 0);
 
-    // Add radial gradient mask with increased radius
-    const gradient = ctx.createRadialGradient(e.pageX, e.pageY, 0, e.pageX, e.pageY, 250); // Increased radius
-    gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-    gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+    // Add radial gradient mask for torch effect
+    const gradient = ctx.createRadialGradient(e.pageX, e.pageY, 0, e.pageX, e.pageY, 200); // Torch radius
+    gradient.addColorStop(0, 'rgba(0, 0, 0, 0)'); // Fully transparent inside torch
+    gradient.addColorStop(1, 'rgba(0, 0, 0, 1)'); // Fully opaque outside torch
 
     // Apply the mask
-    ctx.globalCompositeOperation = 'destination-in';
+    ctx.globalCompositeOperation = 'source-over';
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -124,43 +129,4 @@ window.addEventListener('resize', () => {
     offscreenCanvas.width = canvas.width;
     offscreenCanvas.height = canvas.height;
     drawCircuitBoard();
-});
-
-// Dynamic torch intensity based on mouse speed
-let lastX = 0;
-let lastY = 0;
-let lastTime = 0;
-
-document.addEventListener('mousemove', (e) => {
-    const now = Date.now();
-    const timeDiff = now - lastTime;
-    const distance = Math.sqrt(Math.pow(e.pageX - lastX, 2) + Math.pow(e.pageY - lastY, 2));
-    const speed = distance / timeDiff;
-
-    // Adjust gradient radius based on speed
-    const radius = Math.min(250 + speed * 10, 500); // Cap the radius at 500
-
-    // Clear the main canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Draw the static circuit board from the offscreen canvas
-    ctx.drawImage(offscreenCanvas, 0, 0);
-
-    // Add radial gradient mask with dynamic radius
-    const gradient = ctx.createRadialGradient(e.pageX, e.pageY, 0, e.pageX, e.pageY, radius);
-    gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-    gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-
-    // Apply the mask
-    ctx.globalCompositeOperation = 'destination-in';
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Reset composite operation
-    ctx.globalCompositeOperation = 'source-over';
-
-    // Update last positions and time
-    lastX = e.pageX;
-    lastY = e.pageY;
-    lastTime = now;
 });
